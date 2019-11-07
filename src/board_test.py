@@ -37,6 +37,27 @@ class BoardTest(unittest.TestCase):
             for c in range(0, 8):
                 self.assertEqual(board.fields[r, c], Board.FIELD_EMPTY)
 
+    def test_valid_initial_moves(self):
+        fields = np.asarray([
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 1, 0, 0, 0],
+            [0, 0, 0, 1, 2, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ])
+        expected_valid_black_moves = [(2, 3), (3, 2), (4, 5), (5, 4)]
+        expected_valid_white_moves = [(2, 4), (3, 5), (4, 2), (5, 3)]
+
+        board = Board.from_fields(fields)
+        valid_black_moves = board.valid_moves(board.FIELD_BLACK)
+        valid_white_moves = board.valid_moves(board.FIELD_WHITE)
+
+        self.assertEqual(valid_black_moves, expected_valid_black_moves)
+        self.assertEqual(valid_white_moves, expected_valid_white_moves)
+
 
 if __name__ == '__main__':
     unittest.main()
