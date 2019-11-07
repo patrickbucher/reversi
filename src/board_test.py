@@ -80,6 +80,61 @@ class BoardTest(unittest.TestCase):
         self.assertEqual(valid_black_moves, expected_valid_black_moves)
         self.assertEqual(valid_white_moves, expected_valid_white_moves)
 
+    def test_illegal_moves(self):
+        fields = np.asarray([
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [1, 1, 1, 1, 2, 0, 0, 0],
+            [0, 0, 0, 1, 2, 1, 0, 0],
+            [0, 0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ])
+        board = Board.from_fields(fields)
+        illegal_moves = {
+            board.FIELD_BLACK: [(0, 7), (6, 2), (6, 6)],
+            board.FIELD_WHITE: [(0, 0), (2, 3), (2, 5)]
+        }
+
+        for (color, moves) in illegal_moves.items():
+            for move in moves:
+                try:
+                    board.play(move, color)
+                except ValueError:
+                    pass
+                else:
+                    self.fail('{} move {} applied'.format(color, move))
+
+    def test_perform_black_move(self):
+        initial = np.asarray([
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [1, 1, 1, 1, 2, 0, 0, 0],
+            [0, 0, 0, 1, 2, 1, 0, 0],
+            [0, 0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ])
+        move = (3, 5)
+        outcome = np.asarray([
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [1, 1, 1, 1, 1, 1, 0, 0],
+            [0, 0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ])
+
+        board = Board.from_fields(initial)
+        board = board.play(move, board.FIELD_BLACK)
+
+        print(board.fields)
+        self.assertTrue(np.array_equal(board.fields, outcome))
+
 
 if __name__ == '__main__':
     unittest.main()

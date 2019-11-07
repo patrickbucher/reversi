@@ -55,8 +55,6 @@ class Board:
         neighbourships = self.adjacent_of(empty_fields, opponent)
         valid = range(0, self.DIM)
         for (orig, delta, opponent_field) in neighbourships:
-            if orig == (7, 7):
-                print('yes, it is in', orig, delta, opponent_field)
             if orig in result:
                 continue
             p = opponent_field
@@ -70,6 +68,32 @@ class Board:
                     break
                 p = (r, c)
         return result
+
+    def play(self, move, color):
+        if move not in self.valid_moves(color):
+            raise ValueError('{} is an illegal move'.format(move))
+        fields = np.copy(self._fields)
+        fields[move[0], move[1]] = color
+        print('move {}'.format((move[0], move[1])))
+        valid = range(0, self.DIM)
+        opponent = self.other(color)
+        for delta in self.DIRECTIONS:
+            chain = []
+            p = (move[0], move[1])
+            while p[0] + delta[0] in valid and p[1] + delta[1] in valid:
+                r = p[0] + delta[0]
+                c = p[1] + delta[1]
+                if fields[r][c] == opponent:
+                    chain.append((r, c))
+                elif fields[r][c] == color:
+                    for (row, col) in chain:
+                        fields[row][col] = color
+                    break
+                elif fields[r][c] == self.FIELD_EMPTY:
+                    break
+                p = (r, c)
+
+        return Board.from_fields(fields)
 
     def adjacent_of(self, fields, color):
         adjacents = []
