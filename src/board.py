@@ -55,6 +55,10 @@ class Board:
         neighbourships = self.adjacent_of(empty_fields, opponent)
         valid = range(0, self.DIM)
         for (orig, delta, opponent_field) in neighbourships:
+            if orig == (7, 7):
+                print('yes, it is in', orig, delta, opponent_field)
+            if orig in result:
+                continue
             p = opponent_field
             while p[0] + delta[0] in valid and p[1] + delta[1] in valid:
                 r = p[0] + delta[0]
@@ -62,7 +66,7 @@ class Board:
                 if self._fields[r][c] == color:
                     result.append(orig)
                     break
-                if self._fields[r][c] == opponent:
+                if self._fields[r][c] == self.FIELD_EMPTY:
                     break
                 p = (r, c)
         return result

@@ -58,6 +58,28 @@ class BoardTest(unittest.TestCase):
         self.assertEqual(valid_black_moves, expected_valid_black_moves)
         self.assertEqual(valid_white_moves, expected_valid_white_moves)
 
+    def test_valid_ingame_moves(self):
+        fields = np.asarray([
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [1, 1, 1, 1, 2, 0, 0, 0],
+            [0, 0, 0, 1, 2, 1, 0, 0],
+            [0, 0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ])
+        expected_valid_black_moves = [(1, 5), (2, 3), (2, 5), (3, 5)]
+        expected_valid_white_moves = [(2, 2), (4, 2), (4, 6), (5, 2), (5, 6),
+                                      (6, 2), (6, 4), (7, 7)]
+
+        board = Board.from_fields(fields)
+        valid_black_moves = board.valid_moves(board.FIELD_BLACK)
+        valid_white_moves = board.valid_moves(board.FIELD_WHITE)
+
+        self.assertEqual(valid_black_moves, expected_valid_black_moves)
+        self.assertEqual(valid_white_moves, expected_valid_white_moves)
+
 
 if __name__ == '__main__':
     unittest.main()
