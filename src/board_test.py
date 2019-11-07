@@ -132,7 +132,62 @@ class BoardTest(unittest.TestCase):
         board = Board.from_fields(initial)
         board = board.play(move, board.FIELD_BLACK)
 
-        print(board.fields)
+        self.assertTrue(np.array_equal(board.fields, outcome))
+
+    def test_perform_white_move(self):
+        initial = np.asarray([
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [1, 1, 1, 1, 2, 0, 0, 0],
+            [0, 0, 0, 1, 2, 1, 0, 0],
+            [0, 0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ])
+        move = (4, 2)
+        outcome = np.asarray([
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [1, 1, 1, 2, 2, 0, 0, 0],
+            [0, 0, 2, 2, 2, 1, 0, 0],
+            [0, 0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ])
+
+        board = Board.from_fields(initial)
+        board = board.play(move, board.FIELD_WHITE)
+
+        self.assertTrue(np.array_equal(board.fields, outcome))
+
+    def test_big_fictional_move(self):
+        initial = np.asarray([
+            [2, 2, 2, 2, 2, 2, 2, 2],
+            [2, 1, 1, 1, 1, 1, 1, 2],
+            [2, 1, 1, 1, 1, 1, 1, 2],
+            [2, 1, 1, 1, 0, 1, 1, 2],
+            [2, 1, 1, 1, 1, 1, 1, 2],
+            [2, 1, 1, 1, 1, 1, 1, 2],
+            [2, 1, 1, 1, 1, 1, 1, 2],
+            [2, 2, 2, 2, 2, 2, 2, 2]
+        ])
+        move = (3, 4)
+        outcome = np.asarray([
+            [2, 2, 2, 2, 2, 2, 2, 2],
+            [2, 1, 2, 1, 2, 1, 2, 2],
+            [2, 1, 1, 2, 2, 2, 1, 2],
+            [2, 2, 2, 2, 2, 2, 2, 2],
+            [2, 1, 1, 2, 2, 2, 1, 2],
+            [2, 1, 2, 1, 2, 1, 2, 2],
+            [2, 2, 1, 1, 2, 1, 1, 2],
+            [2, 2, 2, 2, 2, 2, 2, 2]
+        ])
+
+        board = Board.from_fields(initial)
+        board = board.play(move, board.FIELD_WHITE)
+
         self.assertTrue(np.array_equal(board.fields, outcome))
 
 

@@ -74,7 +74,6 @@ class Board:
             raise ValueError('{} is an illegal move'.format(move))
         fields = np.copy(self._fields)
         fields[move[0], move[1]] = color
-        print('move {}'.format((move[0], move[1])))
         valid = range(0, self.DIM)
         opponent = self.other(color)
         for delta in self.DIRECTIONS:
