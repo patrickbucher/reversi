@@ -4,8 +4,8 @@ import logging
 from enum import Enum
 
 from board import Board
-from random_player import RandomPlayer
 from stdin_player import StdinPlayer
+from maxround_player import MaxroundPlayer
 
 
 class Result(Enum):
@@ -71,7 +71,7 @@ class Game:
 
 if __name__ == '__main__':
     player_black = StdinPlayer('blacky', Board.FIELD_BLACK)
-    player_white = RandomPlayer('whitey', Board.FIELD_WHITE)
+    player_white = MaxroundPlayer('whitey', Board.FIELD_WHITE)
     game = Game(player_black, player_white)
     game.log_level(logging.DEBUG)
     result, diff = game.play()
