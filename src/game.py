@@ -5,6 +5,7 @@ from enum import Enum
 
 from board import Board
 from random_player import RandomPlayer
+from stdin_player import StdinPlayer
 
 
 class Result(Enum):
@@ -19,12 +20,17 @@ class Game:
         self._player_black = player_black
         self._player_white = player_white
 
+    def log_level(self, level):
+        logging.basicConfig(level=level)
+
     def play(self):
         board = Board.start_position()
         player = self._player_white
         stuck_counter = 0
         done = False
         while not done:
+
+            logging.debug('field \n{}'.format(board.fields))
 
             if player == self._player_black:
                 player = self._player_white
@@ -39,7 +45,6 @@ class Game:
                 board = board.play(move, player.field)
                 logging.debug('player {:s} move ({:d}, {:d})'
                               .format(player.name, move[0], move[1]))
-                logging.debug('field \n{}'.format(board.fields))
                 stuck_counter = 0
             else:
                 logging.warning('player {:s} illegal move ({:d}, {:d})'
@@ -55,6 +60,7 @@ class Game:
                                  self._player_white.name, white,
                                  done))
 
+        logging.debug('field \n{}'.format(board.fields))
         if black > white:
             return (Result.BLACK_WINS, black - white)
         elif white > black:
@@ -64,7 +70,9 @@ class Game:
 
 
 if __name__ == '__main__':
-    player_black = RandomPlayer('blacky', Board.FIELD_BLACK)
+    player_black = StdinPlayer('blacky', Board.FIELD_BLACK)
     player_white = RandomPlayer('whitey', Board.FIELD_WHITE)
-    result, diff = Game(player_black, player_white).play()
+    game = Game(player_black, player_white)
+    game.log_level(logging.DEBUG)
+    result, diff = game.play()
     print(result, diff)
