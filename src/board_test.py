@@ -190,6 +190,50 @@ class BoardTest(unittest.TestCase):
 
         self.assertTrue(np.array_equal(board.fields, outcome))
 
+    def test_outcome_initial_position(self):
+        initial = np.asarray([
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 1, 0, 0, 0],
+            [0, 0, 0, 1, 2, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ])
+        board = Board.from_fields(initial)
+        expected_finished = False
+        expected_black = 2
+        expected_white = 2
+
+        finished, black, white = board.outcome()
+
+        self.assertEqual(finished, expected_finished)
+        self.assertEqual(black, expected_black)
+        self.assertEqual(white, expected_white)
+
+    def test_outcome_final_position(self):
+        position = np.asarray([
+            [2, 2, 2, 2, 2, 2, 2, 2],
+            [2, 1, 2, 1, 2, 1, 2, 2],
+            [2, 1, 1, 2, 2, 2, 1, 2],
+            [2, 2, 2, 2, 2, 2, 2, 2],
+            [2, 1, 1, 2, 2, 2, 1, 2],
+            [2, 1, 2, 1, 2, 1, 2, 2],
+            [2, 2, 1, 1, 2, 1, 1, 2],
+            [2, 2, 2, 2, 2, 2, 2, 2]
+        ])
+        board = Board.from_fields(position)
+        expected_finished = True
+        expected_black = 16
+        expected_white = 48
+
+        finished, black, white = board.outcome()
+
+        self.assertEqual(finished, expected_finished)
+        self.assertEqual(black, expected_black)
+        self.assertEqual(white, expected_white)
+
 
 if __name__ == '__main__':
     unittest.main()

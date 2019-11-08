@@ -94,6 +94,13 @@ class Board:
 
         return Board.from_fields(fields)
 
+    def outcome(self):
+        black = np.where(self._fields == self.FIELD_BLACK)[0].size
+        white = np.where(self._fields == self.FIELD_WHITE)[0].size
+        empty = np.where(self._fields == self.FIELD_EMPTY)[0].size
+
+        return empty == 0, black, white
+
     def adjacent_of(self, fields, color):
         adjacents = []
         for (row, col) in fields:
