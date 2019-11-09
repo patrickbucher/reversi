@@ -103,7 +103,7 @@ class Board:
         return empty == 0, black, white
 
     def render(self, empty, black, white, row_labels, col_labels):
-        rendered = '  ' + ' '.join(col_labels).strip()
+        rendered = '+ ' + ' '.join(col_labels).strip()
         for i in range(self._fields.shape[0]):
             row_str = row_labels[i] + ' '
             row = self._fields[i].astype(np.unicode_)

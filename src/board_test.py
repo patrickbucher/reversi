@@ -247,7 +247,7 @@ class BoardTest(unittest.TestCase):
         ])
         board = Board.from_fields(fields)
         expected_rendering = """
-  1 2 3 4 5 6 7 8
++ 1 2 3 4 5 6 7 8
 a - - - - - - - -
 b - - - - - - - -
 c - - - - - - - -
