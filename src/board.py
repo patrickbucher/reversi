@@ -4,6 +4,7 @@ import numpy as np
 class Board:
 
     DIM = 8
+
     FIELD_EMPTY = 0
     FIELD_BLACK = 1
     FIELD_WHITE = 2
@@ -100,6 +101,19 @@ class Board:
         empty = np.where(self._fields == self.FIELD_EMPTY)[0].size
 
         return empty == 0, black, white
+
+    def render(self, empty, black, white, row_labels, col_labels):
+        rendered = '  ' + ' '.join(col_labels).strip()
+        for i in range(self._fields.shape[0]):
+            row_str = row_labels[i] + ' '
+            row = self._fields[i].astype(np.unicode_)
+            row = np.where(row == str(self.FIELD_EMPTY), empty, row)
+            row = np.where(row == str(self.FIELD_BLACK), black, row)
+            row = np.where(row == str(self.FIELD_WHITE), white, row)
+            row_str += ' '.join(row).strip()
+            rendered += '\n{:s}'.format(row_str)
+
+        return rendered.strip()
 
     def adjacent_of(self, fields, color):
         adjacents = []

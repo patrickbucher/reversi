@@ -234,6 +234,36 @@ class BoardTest(unittest.TestCase):
         self.assertEqual(black, expected_black)
         self.assertEqual(white, expected_white)
 
+    def test_render(self):
+        fields = np.asarray([
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 1, 0, 0, 0],
+            [0, 0, 0, 1, 2, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ])
+        board = Board.from_fields(fields)
+        expected_rendering = """
+  1 2 3 4 5 6 7 8
+a - - - - - - - -
+b - - - - - - - -
+c - - - - - - - -
+d - - - o x - - -
+e - - - x o - - -
+f - - - - - - - -
+g - - - - - - - -
+h - - - - - - - -
+        """.strip()
+
+        rows = [chr(c + ord('a')) for c in range(8)]
+        cols = [chr(c + ord('0')) for c in range(1, 9)]
+        rendering = board.render('-', 'x', 'o', rows, cols)
+
+        self.assertEqual(rendering, expected_rendering)
+
 
 if __name__ == '__main__':
     unittest.main()
