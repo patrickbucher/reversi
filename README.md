@@ -14,17 +14,24 @@ Python, NumPy, and Deep Learning).
 
 ## Running the Sample Code
 
-- Tournament (`tournament.py`): runs a tournament with `n` rounds and the
-  defined players (with every player combination twice in different order to
-  prevent first-mover advantages)
+### Tournament
 
-Player                 Games     Won    Lost    Ties    Diff
-------------------------------------------------------------
-Edgar Edge               150      85      64       1     434
-Max Hardcore             150      80      69       1     717
-Freddy Firstmove         150      70      78       2    -358
-Randy Random             150      61      85       4    -793
+Tournament (`tournament.py`): runs a tournament with `n` rounds and the defined
+players (with every player combination twice in different order to prevent
+first-mover advantages).
 
-- Game (`game.py`): play as `StdinPlayer` against the computer
-- Simulation: (`simulation.py`): run a number of simulations of two players
-  against each other
+    Player                 Games     Won    Lost    Ties    Diff
+    ------------------------------------------------------------
+    Edgar Edge               150      85      64       1     434
+    Max Hardcore             150      80      69       1     717
+    Freddy Firstmove         150      70      78       2    -358
+    Randy Random             150      61      85       4    -793
+
+### Single Game
+
+Game (`game.py`): play as `StdinPlayer` against the computer.
+
+###  Simulation
+
+Simulation: (`simulation.py`): run a number of simulations of two players
+against each other
