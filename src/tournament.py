@@ -5,6 +5,7 @@ from game import Game, Result
 from random_player import RandomPlayer
 from maxround_player import MaxroundPlayer
 from edge_player import EdgePlayer
+from firstmove_player import FirstmovePlayer
 
 
 class TournamentPlayer:
@@ -85,7 +86,7 @@ class Tournament:
 def output_table(result):
     result = sorted(result, key=lambda entry: entry['delta'], reverse=True)
     result = sorted(result, key=lambda entry: entry['won'], reverse=True)
-    print('{:<20s}{:<8s}{:>8s}{:>8s}{:>8s}{:>8s}'
+    print('{:<20s}{:>8s}{:>8s}{:>8s}{:>8s}{:>8s}'
           .format('Player', 'Games', 'Won', 'Lost', 'Ties', 'Diff'))
     print(60 * '-')
     for player in result:
@@ -98,6 +99,7 @@ if __name__ == '__main__':
     randy = TournamentPlayer(RandomPlayer, 'Randy Random')
     maxi = TournamentPlayer(MaxroundPlayer, 'Max Hardcore')
     edge = TournamentPlayer(EdgePlayer, 'Edgar Edge')
-    tournament = Tournament([randy, maxi, edge])
-    result = tournament.play(10)
+    first = TournamentPlayer(FirstmovePlayer, 'Freddy Firstmove')
+    tournament = Tournament([randy, maxi, edge, first])
+    result = tournament.play(25)
     output_table(result)
