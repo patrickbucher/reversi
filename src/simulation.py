@@ -6,6 +6,7 @@ from board import Board
 from game import Game, Result
 from random_player import RandomPlayer
 from maxround_player import MaxroundPlayer
+from edge_player import EdgePlayer
 
 if __name__ == '__main__':
 
@@ -16,7 +17,7 @@ if __name__ == '__main__':
             raise ValueError('cannot run negative number of games')
 
     player_black = MaxroundPlayer('Max Round', Board.FIELD_BLACK)
-    player_white = RandomPlayer('Barry White', Board.FIELD_WHITE)
+    player_white = EdgePlayer('Barry White', Board.FIELD_WHITE)
 
     black_wins, white_wins, ties = 0, 0, 0
     black_diff, white_diff = 0, 0
