@@ -6,6 +6,7 @@ from random_player import RandomPlayer
 from maxround_player import MaxroundPlayer
 from edge_player import EdgePlayer
 from firstmove_player import FirstmovePlayer
+from minimax_player import MinimaxPlayer
 
 
 class TournamentPlayer:
@@ -97,9 +98,10 @@ def output_table(result):
 
 if __name__ == '__main__':
     randy = TournamentPlayer(RandomPlayer, 'Randy Random')
-    maxi = TournamentPlayer(MaxroundPlayer, 'Max Hardcore')
+    maxi = TournamentPlayer(MaxroundPlayer, 'Max Round')
     edge = TournamentPlayer(EdgePlayer, 'Edgar Edge')
     first = TournamentPlayer(FirstmovePlayer, 'Freddy Firstmove')
-    tournament = Tournament([randy, maxi, edge, first])
-    result = tournament.play(25)
+    minimax = TournamentPlayer(MinimaxPlayer, 'Max Minimax')
+    tournament = Tournament([randy, maxi, edge, first, minimax])
+    result = tournament.play(2)
     output_table(result)
