@@ -1,4 +1,7 @@
-class MinimaxPlayer:
+from board import Board
+
+
+class CornerMinimaxPlayer:
 
     DEPTH = 3
 
@@ -25,6 +28,11 @@ class MinimaxPlayer:
         best_move = None
         best_diff = my - other
         for move in board.valid_moves(our_field):
+            if self.is_corner(move):
+                tmp = board.play(move, our_field)
+                my = tmp.my_outcome(our_field)
+                other = tmp.my_outcome(other_field)
+                return my, other, move
             after_move = board.play(move, our_field)
             if depth == 1:
                 my = board.my_outcome(our_field)
@@ -38,3 +46,8 @@ class MinimaxPlayer:
                 best_move = move
 
         return my, other, best_move
+
+    def is_corner(self, move):
+        edge_row = move[0] == 0 or move[0] == (Board.DIM - 1)
+        edge_col = move[1] == 0 or move[1] == (Board.DIM - 1)
+        return edge_row and edge_col
