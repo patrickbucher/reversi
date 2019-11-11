@@ -12,6 +12,7 @@ Python, NumPy, and Deep Learning).
 - `RandomPlayer` (`random_player.py`): Picks a random valid move.
 - `StdinPlayer` (`stdin_player.py`): You playing on `stdin`.
 - `MinimaxPlayer` (`minimax_player.py`): Applies Minimax algorithm with maximum depth.
+- `CornerMinimaxPlayer` (`cornerminimax_player.py`): First goes for corners, then applies Minimax algorithm.
 
 ## Running the Sample Code
 
@@ -23,11 +24,12 @@ first-mover advantages).
 
     Player                 Games     Won    Lost    Ties    Diff
     ------------------------------------------------------------
-    Max Minimax               16      13       3       0     392
-    Edgar Edge                16      10       6       0     233
-    Max Round                 16       8       7       1       2
-    Randy Random              16       4      11       1    -296
-    Freddy Firstmove          16       4      12       0    -331
+    Max Corner                10       9       1       0     312
+    Randy Random              10       5       5       0      22
+    Edgar Edge                10       5       5       0     -22
+    Max Round                 10       5       4       1     -30
+    Max Minimax               10       3       6       1     -27
+    Freddy Firstmove          10       2       8       0    -255
 
 ### Single Game
 
