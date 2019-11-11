@@ -4,6 +4,3 @@ improve performance
 improve logging
     format
     to file
-implement `minimax_player.py`
-    compute full or partial minimax
-    consider using alpha-beta pruning
