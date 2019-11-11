@@ -234,6 +234,45 @@ class BoardTest(unittest.TestCase):
         self.assertEqual(black, expected_black)
         self.assertEqual(white, expected_white)
 
+    def test_empty_fields(self):
+        initial = np.asarray([
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 1, 0, 0, 0],
+            [0, 0, 0, 1, 2, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ])
+        board = Board.from_fields(initial)
+        expected_empty_fields = 60  # 64 - 4
+
+        empty_fields = board.empty_fields()
+
+        self.assertEqual(empty_fields, expected_empty_fields)
+
+    def test_our_outcome(self):
+        initial = np.asarray([
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 1, 1, 2, 0, 0, 0],
+            [0, 0, 0, 1, 2, 1, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
+        ])
+        board = Board.from_fields(initial)
+        expected_black_outcome = 6
+        expected_white_outcome = 3
+
+        black_outcome = board.my_outcome(board.FIELD_BLACK)
+        white_outcome = board.my_outcome(board.FIELD_WHITE)
+
+        self.assertEqual(black_outcome, expected_black_outcome)
+        self.assertEqual(white_outcome, expected_white_outcome)
+
     def test_render(self):
         fields = np.asarray([
             [0, 0, 0, 0, 0, 0, 0, 0],

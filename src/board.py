@@ -102,6 +102,12 @@ class Board:
 
         return empty == 0, black, white
 
+    def my_outcome(self, field):
+        return np.where(self._fields == field)[0].size
+
+    def empty_fields(self):
+        return np.where(self._fields == self.FIELD_EMPTY)[0].size
+
     def render(self, empty, black, white, row_labels, col_labels):
         rendered = '+ ' + ' '.join(col_labels).strip()
         for i in range(self._fields.shape[0]):
