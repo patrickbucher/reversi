@@ -127,8 +127,7 @@ class Board:
             for (delta_row, delta_col) in self.DIRECTIONS:
                 r = row + delta_row
                 c = col + delta_col
-                valid = range(0, self.DIM)
-                if r not in valid or c not in valid:
+                if r < 0 or r >= self.DIM or c < 0 or c >= self.DIM:
                     continue
                 if self._fields[r][c] == color:
                     orig = (row, col)
