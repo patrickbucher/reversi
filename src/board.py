@@ -54,12 +54,13 @@ class Board:
         empty_fields = self.indices_of(self.FIELD_EMPTY)
         opponent = self.other(color)
         neighbourships = self.adjacent_of(empty_fields, opponent)
-        valid = range(0, self.DIM)
         for (orig, delta, opponent_field) in neighbourships:
             if orig in result:
                 continue
             p = opponent_field
-            while p[0] + delta[0] in valid and p[1] + delta[1] in valid:
+            row_in_range = 0 < (p[0] + delta[0]) < self.DIM
+            col_in_range = 0 < (p[1] + delta[1]) < self.DIM
+            while row_in_range and col_in_range:
                 r = p[0] + delta[0]
                 c = p[1] + delta[1]
                 if self._fields[r][c] == color:
